@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="90" fill="#FF9F7B"/>
+  
+  <!-- Sound Wave Animation -->
+  <path d="M70 100 Q85 70 100 100 Q115 130 130 100" stroke="white" stroke-width="8" stroke-linecap="round"/>
+  <path d="M60 100 Q80 60 100 100 Q120 140 140 100" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+  <path d="M50 100 Q75 50 100 100 Q125 150 150 100" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.4"/>
+  
+  <!-- Text Icon -->
+  <rect x="85" y="70" width="30" height="4" rx="2" fill="white"/>
+  <rect x="85" y="80" width="30" height="4" rx="2" fill="white"/>
+  <rect x="85" y="90" width="20" height="4" rx="2" fill="white"/>
+</svg> 
