@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+* {
+  font-family: "Inter", sans-serif;
+}
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.upload-btn {
+  background-color: #ff9f7b;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+  font-weight: 600;
+}
+
+.upload-btn:hover {
+  background-color: #ff8b66;
+}
+
+.file-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed #ccc;
+}
+
+.file-name {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.file-date {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.content-area {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.text-container {
+  position: relative;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 200px;
+  border: none;
+  resize: none;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #333;
+  background: transparent;
+}
+
+.textarea:focus {
+  outline: none;
+}
+
+.word-count {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  color: #999;
+  font-size: 0.8rem;
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #ff9f7b;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #666;
+  background: white;
+  min-width: 120px;
+}
+
+.summarize-btn {
+  background-color: #ff9f7b;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.summarize-btn:hover {
+  background-color: #ff8b66;
+}
+
+.shortcut-info {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  color: #999;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.keyboard-shortcut {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 0 4px;
+  font-family: system-ui;
+  color: #666;
+}
+
+.voice-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.voice-btn {
+  background-color: #ff9f7b;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.voice-btn:hover {
+  background-color: #ff8b66;
+}
