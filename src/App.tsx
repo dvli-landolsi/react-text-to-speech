@@ -247,10 +247,8 @@ const TextToSpeech: React.FC = () => {
           property="og:description"
           content="Modern text-to-speech converter with support for PDFs, DOCX files, and multiple languages. Built with React and TypeScript."
         />
-        <meta property="og:image" content="/logo.svg" />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://yourdomain.com" />
         <meta
           property="twitter:title"
           content="Audio Transcribe - Text to Speech Converter"
@@ -324,7 +322,6 @@ const TextToSpeech: React.FC = () => {
           </div>
         </div>
 
-        {/* Display text as clickable words */}
         <div className="clickable-text-container">{renderTextAsWords()}</div>
       </div>
       <div className="controls">
