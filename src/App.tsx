@@ -270,7 +270,7 @@ const TextToSpeech: React.FC = () => {
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
-        <meta property="og:image" content="/logo.png" />
+        <meta property="og:image" content="/public/logo.png" />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
