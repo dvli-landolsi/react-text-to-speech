@@ -5,7 +5,7 @@ import pdfWorker from "pdfjs-dist/build/pdf.worker.mjs?url";
 import mammoth from "mammoth";
 import "./App.css";
 import { Helmet } from "react-helmet";
-import logo from "/public/logo.svg";
+import logo from "./assets/logo.png";
 
 const TextToSpeech: React.FC = () => {
   const [text, setText] = useState<string>("");
@@ -265,6 +265,8 @@ const TextToSpeech: React.FC = () => {
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        <meta name="robots" content="index,follow" />
+
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
           rel="stylesheet"
