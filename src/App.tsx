@@ -1,4 +1,4 @@
-import React, { useState, useEffect, KeyboardEvent } from "react";
+import React, { useState, useEffect, KeyboardEvent, useRef } from "react";
 import { franc } from "franc-min";
 import * as pdfjsLib from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker.mjs?url";
@@ -12,6 +12,9 @@ const TextToSpeech: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
   const [isPaused, setIsPaused] = useState<boolean>(false);
+  const [selectedWordIndex, setSelectedWordIndex] = useState<number>(-1);
+  const textRef = useRef<HTMLTextAreaElement>(null);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   const languageMap: { [key: string]: string } = {
     eng: "en",
@@ -35,12 +38,17 @@ const TextToSpeech: React.FC = () => {
     const handleSpeechEnd = () => {
       setIsSpeaking(false);
       setIsPaused(false);
+      setSelectedWordIndex(-1);
     };
 
     window.speechSynthesis.addEventListener("end", handleSpeechEnd);
 
+    // Cleanup function to cancel speech synthesis when component unmounts
     return () => {
       window.speechSynthesis.removeEventListener("end", handleSpeechEnd);
+      window.speechSynthesis.cancel(); // Cancel any ongoing speech
+      setIsSpeaking(false);
+      setIsPaused(false);
     };
   }, []);
 
@@ -50,11 +58,33 @@ const TextToSpeech: React.FC = () => {
         window.speechSynthesis.cancel();
         setIsSpeaking(false);
         setIsPaused(false);
+        setSelectedWordIndex(-1);
         return;
       }
 
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = language;
+
+      // Store the utterance in the ref for later use
+      utteranceRef.current = utterance;
+
+      // Add event listener for word boundaries
+      utterance.onboundary = (event) => {
+        if (event.name === "word") {
+          const wordIndex = event.charIndex;
+          const words = text.split(/\s+/);
+          let currentIndex = 0;
+
+          for (let i = 0; i < words.length; i++) {
+            if (currentIndex + words[i].length >= wordIndex) {
+              setSelectedWordIndex(i);
+              break;
+            }
+            currentIndex += words[i].length + 1; // +1 for the space
+          }
+        }
+      };
+
       window.speechSynthesis.speak(utterance);
       setIsSpeaking(true);
     } else {
@@ -81,7 +111,39 @@ const TextToSpeech: React.FC = () => {
     }
   };
 
-  // Handle PDF file upload
+  const handleWordClick = (index: number): void => {
+    setSelectedWordIndex(index);
+
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+
+      const words = text.split(/\s+/);
+      const textFromWord = words.slice(index).join(" ");
+
+      const utterance = new SpeechSynthesisUtterance(textFromWord);
+      utterance.lang = language;
+      utteranceRef.current = utterance;
+
+      utterance.onboundary = (event) => {
+        if (event.name === "word") {
+          const wordIndex = event.charIndex;
+          const currentWords = textFromWord.split(/\s+/);
+          let currentIndex = 0;
+
+          for (let i = 0; i < currentWords.length; i++) {
+            if (currentIndex + currentWords[i].length >= wordIndex) {
+              setSelectedWordIndex(index + i);
+              break;
+            }
+            currentIndex += currentWords[i].length + 1; // +1 for the space
+          }
+        }
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
   const handlePdfUpload = async (file: File) => {
     const reader = new FileReader();
     reader.onload = async (e) => {
@@ -135,10 +197,34 @@ const TextToSpeech: React.FC = () => {
     }
   };
 
+  const renderTextAsWords = () => {
+    if (!text) return null;
+
+    const words = text.split(/\s+/);
+    return (
+      <div className="words-container">
+        {words.map((word, index) => (
+          <span
+            key={index}
+            className={`word ${
+              selectedWordIndex === index ? "selected-word" : ""
+            }`}
+            onClick={() => handleWordClick(index)}
+          >
+            {word}{" "}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="container">
       <div className="header">
-        <h1 className="title">Audio Transcribe</h1>
+        <div className="logo-container">
+          <img src="/logo.svg" alt="Audio Transcribe Logo" className="logo" />
+          <h1 className="title">Audio Transcribe</h1>
+        </div>
         <label className="upload-btn">
           Add New File
           <input
@@ -151,6 +237,13 @@ const TextToSpeech: React.FC = () => {
         </label>
       </div>
 
+      <div className="description">
+        Transform your text into natural speech instantly. Upload PDFs, Word
+        documents, or type directly - Audio Transcribe converts everything to
+        clear, natural-sounding speech using your browser's native capabilities.
+        No external services, no data uploads, just pure browser magic.
+      </div>
+
       <div className="file-info">
         <span className="file-name">{fileName}</span>
         <span className="file-date">
@@ -161,6 +254,7 @@ const TextToSpeech: React.FC = () => {
       <div className="content-area">
         <div className="text-container">
           <textarea
+            ref={textRef}
             className="textarea"
             placeholder="Enter text to speak or upload a PDF/DOCX file..."
             value={text}
@@ -178,6 +272,9 @@ const TextToSpeech: React.FC = () => {
             {text.split(/\s+/).filter(Boolean).length} / 225
           </div>
         </div>
+
+        {/* Display text as clickable words */}
+        <div className="clickable-text-container">{renderTextAsWords()}</div>
       </div>
 
       <div className="controls">
