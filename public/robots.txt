@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://text-to-speech-lilac-phi.vercel.app/sitemap.xml
