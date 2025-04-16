@@ -5,7 +5,7 @@ import pdfWorker from "pdfjs-dist/build/pdf.worker.mjs?url";
 import mammoth from "mammoth";
 import "./App.css";
 import { Helmet } from "react-helmet";
-import logo from "/logo.svg";
+import logo from "/public/logo.svg";
 
 const TextToSpeech: React.FC = () => {
   const [text, setText] = useState<string>("");
