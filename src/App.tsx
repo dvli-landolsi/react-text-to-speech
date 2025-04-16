@@ -4,6 +4,8 @@ import * as pdfjsLib from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker.mjs?url";
 import mammoth from "mammoth";
 import "./App.css";
+import { Helmet } from "react-helmet";
+import logo from "/logo.svg";
 
 const TextToSpeech: React.FC = () => {
   const [text, setText] = useState<string>("");
@@ -220,6 +222,58 @@ const TextToSpeech: React.FC = () => {
 
   return (
     <div className="container">
+      <Helmet>
+        <title>Audio Transcribe - Browser-Based Text to Speech</title>
+        <meta
+          name="title"
+          content="Audio Transcribe - Browser-Based Text to Speech"
+        />
+        <meta
+          name="description"
+          content="Convert text, PDFs, and DOCX files to speech using native browser APIs. No external services or uploads required - everything runs locally in your browser."
+        />
+        <meta
+          name="keywords"
+          content="text to speech, Web Speech API, offline text to speech, PDF to speech, DOCX to speech, browser-based converter, privacy-focused, no upload required"
+        />
+        <meta name="author" content="Mohamed Ali Landolsi" />
+
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Audio Transcribe - Text to Speech Converter"
+        />
+        <meta
+          property="og:description"
+          content="Modern text-to-speech converter with support for PDFs, DOCX files, and multiple languages. Built with React and TypeScript."
+        />
+        <meta property="og:image" content="/logo.svg" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://yourdomain.com" />
+        <meta
+          property="twitter:title"
+          content="Audio Transcribe - Text to Speech Converter"
+        />
+        <meta
+          property="twitter:description"
+          content="Modern text-to-speech converter with support for PDFs, DOCX files, and multiple languages. Built with React and TypeScript."
+        />
+        <meta property="twitter:image" content="/logo.svg" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+          rel="stylesheet"
+        />
+        <meta property="og:image" content={logo} />
+      </Helmet>
+      // actual work
       <div className="header">
         <div className="logo-container">
           <img src="/logo.svg" alt="Audio Transcribe Logo" className="logo" />
@@ -236,21 +290,18 @@ const TextToSpeech: React.FC = () => {
           />
         </label>
       </div>
-
       <div className="description">
         Transform your text into natural speech instantly. Upload PDFs, Word
         documents, or type directly - Audio Transcribe converts everything to
         clear, natural-sounding speech using your browser's native capabilities.
         No external services, no data uploads, just pure browser magic.
       </div>
-
       <div className="file-info">
         <span className="file-name">{fileName}</span>
         <span className="file-date">
           {new Date().toLocaleDateString("en-GB")}
         </span>
       </div>
-
       <div className="content-area">
         <div className="text-container">
           <textarea
@@ -276,7 +327,6 @@ const TextToSpeech: React.FC = () => {
         {/* Display text as clickable words */}
         <div className="clickable-text-container">{renderTextAsWords()}</div>
       </div>
-
       <div className="controls">
         <select
           className="select"
