@@ -111,7 +111,7 @@ const TextToSpeech: React.FC = () => {
     }
   };
 
-  const handleWordClick = (word: string, index: number): void => {
+  const handleWordClick = (index: number): void => {
     setSelectedWordIndex(index);
 
     if (isSpeaking) {
@@ -209,7 +209,7 @@ const TextToSpeech: React.FC = () => {
             className={`word ${
               selectedWordIndex === index ? "selected-word" : ""
             }`}
-            onClick={() => handleWordClick(word, index)}
+            onClick={() => handleWordClick(index)}
           >
             {word}{" "}
           </span>
